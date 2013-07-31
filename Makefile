@@ -7,7 +7,7 @@ clean:
 	@rm -rf ${BUILD_DIR}
 	@rm -rf node_modules
 	@npm install
-	@ehco "Finishing clean"
+	@echo "Finishing clean"
 
 test: clean
 	@echo "Starting test"
