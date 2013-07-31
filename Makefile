@@ -11,5 +11,5 @@ clean:
 
 test: clean
 	@echo "Starting test"
-	@buster test
-	@echo "Finishign test"
+	@npm test
+	@echo "Finishing test"

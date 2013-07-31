@@ -4,10 +4,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    buster: {
-      test: {}
-    },
-
     browserify: {
       build: {
         src: 'lib/superstore.js',
@@ -30,12 +26,11 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.loadNpmTasks('grunt-buster');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-istanbul');
 
   // Default task.
   grunt.registerTask('default', ['browserify:build']);
-  grunt.registerTask('test', ['instrument', 'browserify:test', 'buster:test']);
+  grunt.registerTask('test', ['instrument', 'browserify:test']);
 };
  
