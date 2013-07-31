@@ -1,6 +1,6 @@
 {
   "name": "superstore",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Local storage, without the bugs.",
   "main": "lib/superstore.js",
   "directories": {
