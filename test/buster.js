@@ -13,6 +13,7 @@ config['superstore'] = {
     require('buster-istanbul')
   ],
   'buster-istanbul': {
+    instrument: false,
     outputDirectory: 'coverage'
   }
 };
