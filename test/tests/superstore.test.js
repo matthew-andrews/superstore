@@ -21,17 +21,24 @@ buster.testCase('superstore', {
   "Should be able to unset things": function() {
     localStorage.keyThree = "Hello";
     Superstore.unset('keyThree', function() {
-      console.log('OK', localStorage.keyThree);
       assert.equals(undefined, localStorage.keyThree);
     });
   },
   "Shouldn't need to provide a set callback to set": function() {
     Superstore.set("keyFour", "OK");
-    assert.equals("OK", localStorage.keyFour);
+    assert.equals("\"OK\"", localStorage.keyFour);
   },
   "Shouldn't need to provide a set callback to unset": function() {
     localStorage.keyFifth = true;
     Superstore.unset('keyFifth');
     assert.equals(undefined, localStorage.keyFifth);
+  },
+  "Should json encode and decode objects": function() {
+    var obj = {
+      test: [1,4,6,7]
+    };
+    Superstore.set('keySixth', obj, function() {
+      assert.equals(JSON.stringify(obj), localStorage.keySixth);
+    });
   }
 });
