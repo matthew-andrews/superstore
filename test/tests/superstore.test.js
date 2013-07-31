@@ -24,5 +24,14 @@ buster.testCase('superstore', {
       console.log('OK', localStorage.keyThree);
       assert.equals(undefined, localStorage.keyThree);
     });
+  },
+  "Shouldn't need to provide a set callback to set": function() {
+    Superstore.set("keyFour", "OK");
+    assert.equals("OK", localStorage.keyFour);
+  },
+  "Shouldn't need to provide a set callback to unset": function() {
+    localStorage.keyFifth = true;
+    Superstore.unset('keyFifth');
+    assert.equals(undefined, localStorage.keyFifth);
   }
 });
