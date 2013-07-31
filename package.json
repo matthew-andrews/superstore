@@ -1,0 +1,29 @@
+{
+  "name": "superstore",
+  "version": "0.0.0",
+  "description": "Local storage, without the bugs.",
+  "main": "lib/superstore.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "buster-istanbul": "~0.1.9",
+    "grunt-buster": "~0.2.1",
+    "grunt-browserify": "~1.2.1",
+    "buster": "~0.6.12",
+    "grunt-istanbul": "~0.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@10.119.160.180:ftlabs/superstore.git"
+  },
+  "keywords": [
+    "localstorage"
+  ],
+  "author": "Matt Andrews <matthew.andrews@ft.com>",
+  "license": "MIT"
+}
