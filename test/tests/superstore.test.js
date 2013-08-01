@@ -45,5 +45,10 @@ buster.testCase('superstore', {
     Superstore.set('keySeventh', obj, function() {
       assert.equals(JSON.stringify(obj), localStorage.keySeventh);
     });
+  },
+  "Set should fire a callback": function() {
+    var spy = this.spy();
+    Superstore.set('keyNinth', 'A', spy);
+    assert.called(spy);
   }
 });
