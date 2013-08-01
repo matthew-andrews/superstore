@@ -26,7 +26,7 @@ buster.testCase('superstore', {
   },
   "Shouldn't need to provide a set callback to set": function() {
     Superstore.set("keyFour", "OK");
-    assert.equals("OK", localStorage.keyFour);
+    assert.equals("\"OK\"", localStorage.keyFour);
   },
   "Shouldn't need to provide a set callback to unset": function() {
     localStorage.keyFifth = true;
@@ -36,6 +36,14 @@ buster.testCase('superstore', {
   "Getting an unset key should return a nully value": function() {
     Superstore.get("keySixth", function(err, value) {
       assert.equals(value, undefined);
+    });
+  },
+  "Should json encode and decode objects": function() {
+    var obj = {
+      test: [1,4,6,7]
+    };
+    Superstore.set('keySeventh', obj, function() {
+      assert.equals(JSON.stringify(obj), localStorage.keySeventh);
     });
   }
 });
