@@ -21,7 +21,6 @@ buster.testCase('superstore', {
   "Should be able to unset things": function() {
     localStorage.keyThree = "Hello";
     Superstore.unset('keyThree', function() {
-      console.log('OK', localStorage.keyThree);
       assert.equals(undefined, localStorage.keyThree);
     });
   },
@@ -33,5 +32,10 @@ buster.testCase('superstore', {
     localStorage.keyFifth = true;
     Superstore.unset('keyFifth');
     assert.equals(undefined, localStorage.keyFifth);
+  },
+  "Getting an unset key should return a nully value": function() {
+    Superstore.get("keySixth", function(err, value) {
+      assert.equals(value, undefined);
+    });
   }
 });
