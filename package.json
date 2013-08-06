@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@10.119.160.180:ftlabs/superstore.git"
+    "url": "git@github.com:matthew-andrews/superstore.git"
   },
   "keywords": [
     "localstorage"
