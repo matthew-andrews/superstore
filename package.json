@@ -15,7 +15,8 @@
     "grunt-browserify": "~1.2.1",
     "buster": "~0.6.12",
     "grunt-istanbul": "~0.2.1",
-    "phantomjs": "~1.9.1"
+    "phantomjs": "~1.9.1",
+    "q": "~0.9.6"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
     "localstorage"
   ],
   "author": "Matt Andrews <matthew.andrews@ft.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "setimmediate": "~1.0.1"
+  }
 }
