@@ -1,5 +1,18 @@
 (function(e){if("function"==typeof bootstrap)bootstrap("superstore",e);else if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else if("undefined"!=typeof ses){if(!ses.ok())return;ses.makeSuperstore=e}else"undefined"!=typeof window?window.Superstore=e():global.Superstore=e()})(function(){var define,ses,bootstrap,module,exports;
 return (function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({1:[function(require,module,exports){
+require('setimmediate');
+
+module.exports = callImmediate;
+
+function callImmediate() {
+  var self = this;
+  var args = [].splice.call(arguments, 0);
+  setImmediate(function () {
+    args[0].apply(self, args.splice(1));
+  });
+}
+
+},{"setimmediate":4}],2:[function(require,module,exports){
 /**
  * Superstore
  *
@@ -10,26 +23,18 @@ return (function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require
 var keys = {};
 var store = {};
 var persist = true;
-
-require('setimmediate'); 
-
-function callImmediate() {
-  var self = this;
-  var args = [].splice.call(arguments, 0);
-  setImmediate(function () {
-    args[0].apply(self, args.splice(1));
-  });
-}
+var callImmediate = require('./callimmediate.js');
 
 exports.get = function(key, cb) {
-  if (keys[key]) return callImmediate(cb, undefined, store[key]); 
-  var data = localStorage[key];
+  if (!keys[key]) {
+    var data = localStorage[key];
 
-  // Slightly weird hack because JSON.parse of an undefined value throws
-  // a weird exception "SyntaxError: Unexpected token u" 
-  if (data) data = JSON.parse(data);
-  store[key] = data;
-  keys[key] = true;
+    // Slightly weird hack because JSON.parse of an undefined value throws
+    // a weird exception "SyntaxError: Unexpected token u" 
+    if (data) data = JSON.parse(data);
+    store[key] = data;
+    keys[key] = true;
+  }
   callImmediate(cb, undefined, store[key]);
 };
 
@@ -79,7 +84,7 @@ exports.clear = function(hard, cb) {
   if (cb) callImmediate(cb);
 };
 
-},{"setimmediate":3}],2:[function(require,module,exports){
+},{"./callimmediate.js":1}],3:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -133,8 +138,8 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],3:[function(require,module,exports){
-(function(process,global){(function (global, undefined) {
+},{}],4:[function(require,module,exports){
+var process=require("__browserify_process"),global=self;(function (global, undefined) {
     "use strict";
 
     var tasks = (function () {
@@ -353,7 +358,6 @@ process.chdir = function (dir) {
     }
 }(typeof global === "object" && global ? global : this));
 
-})(require("__browserify_process"),self)
-},{"__browserify_process":2}]},{},[1])(1)
+},{"__browserify_process":3}]},{},[2])(2)
 });
 ;
