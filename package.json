@@ -3,11 +3,14 @@
   "version": "0.2.1",
   "description": "Local storage, without the bugs.",
   "main": "lib/superstore.js",
+  "engines": {
+    "node": "*"
+  },
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "grunt test; buster test"
+    "test": "./node_modules/.bin/grunt test; ./node_modules/.bin/buster test"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
