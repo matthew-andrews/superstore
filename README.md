@@ -2,7 +2,7 @@
 
 ## api
 
-Superstore is an uninstantiable module.
+Superstore is an uninstantiable module.  Its methods are:
 
 ### #get(key, callback)
 
