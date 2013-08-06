@@ -1,4 +1,4 @@
-# superstore [![Build Status](http://jenkins:8080/buildStatus/icon?job=superstore)](http://dev01-jenkins01-uk1.ak.ft.com:8080/view/Core%20Libraries/job/superstore/)
+# superstore [![Build Status](https://travis-ci.org/matthew-andrews/superstore.png?branch=master)](https://travis-ci.org/matthew-andrews/superstore)
 
 Superstore is a simple lightweight asynchronous wrapper around localStorage.  Its features include:
 
