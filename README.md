@@ -6,6 +6,12 @@ Superstore is a simple lightweight asynchronous wrapper around localStorage.  It
 - By making use of [setImmediate](https://github.com/NobleJS/setImmediate) its callbacks are truly asynchronous whilst still being cross-browser and performant (compared with `setTimeout(function() {}, 0)` [which introduces a delay of *at least* 10ms](https://developer.mozilla.org/en-US/docs/Web/API/window.setTimeout#Minimum.2F_maximum_delay_and_timeout_nesting)).
 - It accepts objects as values and runs `JSON.stringify` on **#set** and `JSON.parse` on **#get** for you.
 
+## installation
+
+```
+npm install superstore
+```
+
 ## api
 
 Superstore is an uninstantiable module.  Its methods are:
