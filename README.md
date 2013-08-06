@@ -8,9 +8,9 @@ Superstore is an uninstantiable module.  Its methods are:
 
 ### #set(key, value, callback)
 
-### #unset(key, value, callback)
+### #unset(key, callback)
 
-### #clear(key, callback)
+### #clear(callback)
 
 ## todo
 
