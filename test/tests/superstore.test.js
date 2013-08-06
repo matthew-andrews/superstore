@@ -38,12 +38,8 @@ buster.testCase('superstore', {
     return deferred.promise;
   },
   "Shouldn't need to provide a set callback to set": function() {
-    var deferred = Q.defer();
-    Superstore.set("keyFour", "OK", function() {
-      assert.equals("\"OK\"", localStorage.keyFour);
-      deferred.resolve();
-    });
-    return deferred.promise;
+    Superstore.set("keyFour", "OK");
+    assert.equals(localStorage.keyFour, "\"OK\"");
   },
   "Shouldn't need to provide a set callback to unset": function() {
     var deferred = Q.defer();
@@ -75,20 +71,22 @@ buster.testCase('superstore', {
   },
   "Set should fire a callback": function() {
     var deferred = Q.defer();
-    assert(true);
+    var spy = this.spy();
     Superstore.set('keyNinth', 'A', function () {
-      assert(true);
+      spy();
       deferred.resolve();
     });
-    return deferred.promise;
+    return deferred.promise.then(function() {
+      assert.called(spy);
+    });;
   },
   "#clear() clears": function() {
     var deferred = Q.defer();
     Superstore.set('keyTenth', 'A', function() {
       Superstore.set('keyEleventh', 'B', function() {
         Superstore.clear(function() {
-          assert.equals(undefined, localStorage.A);
-          assert.equals(undefined, localStorage.B);
+          assert.equals(undefined, localStorage.keyTenth);
+          assert.equals(undefined, localStorage.keyEleventh);
           deferred.resolve();
         });
       });
