@@ -2,4 +2,4 @@
 
 ## Todo
 
-Make async API truly asynchronous.  Probably use a setImmediate polyfill to get performance async flow (ie. without the cost of setTimeout's padding).
+Make async API truly asynchronous.  Probably use a setImmediate polyfill to get performance async flow (ie. without the cost of setTimeout's padding).  Speak to @george about this.
