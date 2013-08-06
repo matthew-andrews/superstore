@@ -26,4 +26,5 @@ Superstore is an uninstantiable module.  Its methods are:
 
 ## todo
 
-JSDoc comments and automatically generating documentation.
+- JSDoc comments and automatically generating documentation.
+- Should clear and unset be merged?
