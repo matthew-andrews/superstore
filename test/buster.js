@@ -15,6 +15,6 @@ config['superstore'] = {
   'buster-istanbul': {
     instrument: false,
     outputDirectory: 'coverage',
-    format: "cobertura"
+    format: ["cobertura", "lcov"]
   }
 };

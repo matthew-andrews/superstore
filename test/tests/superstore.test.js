@@ -1,6 +1,6 @@
 buster.testCase('superstore', {
   "setUp": function() {
-    localStorage.clear();
+    Superstore.clear();
   },
   "Should be able to set and get data against a key": function() {
     Superstore.set('quay', 'val you', function() {
@@ -50,5 +50,28 @@ buster.testCase('superstore', {
     var spy = this.spy();
     Superstore.set('keyNinth', 'A', spy);
     assert.called(spy);
+  },
+  "#clear() clears": function() {
+    Superstore.set('keyTenth', 'A', function() {
+      Superstore.set('keyEleventh', 'B', function() {
+        Superstore.clear(function() {
+          assert.equals(undefined, localStorage.A);
+          assert.equals(undefined, localStorage.B);
+        });
+      });
+    });
+  },
+  "#clear(false) only clear the cache": function() {
+    Superstore.set('keyTwelth', 'A', function() {
+      localStorage.keyTwelth = JSON.stringify('B');
+      Superstore.get('keyTwelth', function(err, value) {
+        assert.equals(value, 'A');
+        Superstore.clear(false, function() {
+          Superstore.get('keyTwelth', function(err, value) {
+            assert.equals(value, 'B');
+          });
+        });
+      });
+    });
   }
 });
