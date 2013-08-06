@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.8",
     "buster-istanbul": "~0.1.10",
     "grunt-browserify": "~1.2.1",
     "buster": "~0.6.12",
