@@ -28,3 +28,4 @@ Superstore is an uninstantiable module.  Its methods are:
 
 - JSDoc comments and automatically generating documentation.
 - Should clear and unset be merged?
+- Effective Javascript #54 - Don't use `arguments.length` to provide parameter default values.
