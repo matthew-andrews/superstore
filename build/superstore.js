@@ -1,19 +1,17 @@
 (function(e){if("function"==typeof bootstrap)bootstrap("superstore",e);else if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else if("undefined"!=typeof ses){if(!ses.ok())return;ses.makeSuperstore=e}else"undefined"!=typeof window?window.Superstore=e():global.Superstore=e()})(function(){var define,ses,bootstrap,module,exports;
 return (function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({1:[function(require,module,exports){
 /**
- * Superstore
+ * Superstore synchronous library
  *
  * @author Matt Andrews <matthew.andrews@ft.com>
  * @copyright The Financial Times [All Rights Reserved]
  */
 
-require('setimmediate');
-
 var keys = {};
 var store = {};
 var persist = true;
 
-exports.get = function(key, cb) {
+exports.get = function(key) {
   if (!keys[key] && persist) {
     var data = localStorage[key];
 
@@ -23,10 +21,10 @@ exports.get = function(key, cb) {
     store[key] = data;
     keys[key] = true;
   }
-  setImmediate(cb, undefined, store[key]);
+  return store[key];
 };
 
-exports.set = function(key, value, cb) {
+exports.set = function(key, value) {
   try {
     localStorage[key] = JSON.stringify(value);
   } catch(err) {
@@ -35,22 +33,55 @@ exports.set = function(key, value, cb) {
     if (err.code === 22) {
       persist = false;
     } else {
-      return cb && setImmediate(cb, err);
+      throw err;
     }
   }
   store[key] = value;
   keys[key] = true;
+};
+
+exports.unset = function(key) {
+  delete store[key];
+  delete keys[key];
+  localStorage.removeItem(key);
+};
+
+/**
+ * #clear(true) and #clear() clear cache and persistent layer, #clear(false) only clears cache
+ *
+ */
+exports.clear = function(hard) {
+  if (persist && hard === true) localStorage.clear();
+  store = {};
+  keys = {};
+};
+
+},{}],2:[function(require,module,exports){
+/**
+ * Superstore
+ *
+ * @author Matt Andrews <matthew.andrews@ft.com>
+ * @copyright The Financial Times [All Rights Reserved]
+ */
+
+require('setimmediate');
+sync = require('./superstore-sync');
+
+var keys = {};
+var store = {};
+var persist = true;
+
+exports.get = function(key, cb) {
+  setImmediate(cb, undefined, sync.get(key));
+};
+
+exports.set = function(key, value, cb) {
+  sync.set(key, value);
   if (cb) setImmediate(cb);
 };
 
 exports.unset = function(key, cb) {
-  delete store[key];
-  delete keys[key];
-  try {
-    localStorage.removeItem(key);
-  } catch(err) {
-    return cb && setImmediate(cb, err);
-  }
+  sync.unset(key);
   if (cb) setImmediate(cb);
 };
 
@@ -65,14 +96,11 @@ exports.clear = function(hard, cb) {
     case 0:
       hard = true;
   }
-
-  if (persist && hard === true) localStorage.clear();
-  store = {};
-  keys = {};
+  sync.clear(hard);
   if (cb) setImmediate(cb);
 };
 
-},{"setimmediate":3}],2:[function(require,module,exports){
+},{"./superstore-sync":1,"setimmediate":4}],3:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -126,7 +154,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var process=require("__browserify_process"),global=self;(function (global, undefined) {
     "use strict";
 
@@ -346,6 +374,6 @@ var process=require("__browserify_process"),global=self;(function (global, undef
     }
 }(typeof global === "object" && global ? global : this));
 
-},{"__browserify_process":2}]},{},[1])(1)
+},{"__browserify_process":3}]},{},[2])(2)
 });
 ;
