@@ -18,7 +18,7 @@
     "buster-istanbul": "~0.1.10",
     "grunt-browserify": "~1.2.1",
     "buster": "~0.6.12",
-    "grunt-istanbul": "~0.2.1",
+    "grunt-istanbul": "~0.2.2",
     "phantomjs": "~1.9.1",
     "q": "~0.9.6"
   },

@@ -21,7 +21,8 @@ module.exports = function(grunt) {
     instrument: {
       files: 'lib/**/*.js',
       options: {
-        basePath: 'coverage/'
+        basePath: 'coverage/',
+        lazy: true
       }
     },
   });
@@ -33,4 +34,4 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['browserify:build']);
   grunt.registerTask('test', ['instrument', 'browserify:test']);
 };
- 
+
