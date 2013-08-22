@@ -142,14 +142,14 @@ tests["watch for changes in other processes"] = function() {
 };
 
 tests["throw error if no namespace given"] = function() {
-  var deferred = Q.defer();
+  var errStr;
   try {
     var store = new Superstore();
   } catch(e) {
-    assert.equals(e, "Namespace required");
-    deferred.resolve();
+    errStr = e;
   }
-  return deferred.promise;
+
+  assert.equals(errStr, "Namespace required");
 };
 
 tests["be able to set in one instance of superstore and get from another instance"] = function() {
