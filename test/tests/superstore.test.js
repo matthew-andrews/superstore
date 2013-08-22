@@ -128,4 +128,21 @@ tests[prefix + "#clear(false) only clear the cache"] = function() {
   });
   return deferred.promise;
 };
+
+tests["watch for changes in other processes"] = function() {
+  var deferred = Q.defer();
+  Superstore.set('key13', 'A', function() {
+    var event = new CustomEvent("storage");
+    event.key = "key13";
+    event.newValue = "\"B\"";
+
+    window.dispatchEvent(event);
+    Superstore.get('key13', function(err, value) {
+      assert.equals(value, 'B');
+      deferred.resolve();
+    });
+  });
+  return deferred.promise;
+};
+
 buster.testCase('superstore', tests);
