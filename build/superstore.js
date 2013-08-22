@@ -65,7 +65,7 @@ exports.clear = function(hard) {
  */
 
 require('setimmediate');
-sync = require('./superstore-sync');
+var sync = require('./superstore-sync');
 
 var keys = {};
 var store = {};
