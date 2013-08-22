@@ -7,7 +7,8 @@ try {
 }
 
 var tests = {};
-var store = new Superstore("testing123");
+var store    = new Superstore("testing123");
+var dupStore = new Superstore("testing123");
 
 function getLocalStorage(key) {
   return localStorage[store.namespace+key];
@@ -148,6 +149,18 @@ tests["throw error if no namespace given"] = function() {
     assert.equals(e, "Namespace required");
     deferred.resolve();
   }
+  return deferred.promise;
+};
+
+tests["be able to set in one instance of superstore and get from another instance"] = function() {
+  var deferred = Q.defer();
+
+  store.set('dupKey', 'hello', function() {
+    dupStore.get('dupKey', function(err, value) {
+      assert.equals("hello", value);
+      deferred.resolve();
+    });
+  });
   return deferred.promise;
 };
 
