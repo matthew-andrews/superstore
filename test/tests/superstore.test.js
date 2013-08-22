@@ -18,7 +18,7 @@ function setLocalStorage(key, val) {
 };
 
 tests["setUp"] = function() {
-  store.clear();
+  localStorage.clear();
 };
 
 tests["Should be able to set and get data against a key"] = function() {
@@ -107,13 +107,16 @@ tests["Set should fire a callback"] = function() {
   });;
 };
 
-tests[prefix + "#clear() clears"] = function() {
+tests[prefix + "#clear() clears only our namespaced data"] = function() {
   var deferred = Q.defer();
+  localStorage["other"] = "123";
+
   store.set('keyTenth', 'A', function() {
     store.set('keyEleventh', 'B', function() {
       store.clear(function() {
         assert.equals(undefined, getLocalStorage("keyTenth"));
         assert.equals(undefined, getLocalStorage("keyEleventh"));
+        assert.equals("123",     localStorage["other"]);
         deferred.resolve();
       });
     });
