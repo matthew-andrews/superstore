@@ -129,7 +129,7 @@ tests[prefix + "#clear(false) only clear the cache"] = function() {
   return deferred.promise;
 };
 
-tests[prefix + "watch for changes in other processes"] = function() {
+tests["watch for changes in other processes"] = function() {
   var deferred = Q.defer();
   Superstore.set('key13', 'A', function() {
     var event = new CustomEvent("storage");
