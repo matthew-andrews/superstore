@@ -27,5 +27,6 @@ Superstore is an uninstantiable module.  Its methods are:
 ## todo
 
 - JSDoc comments and automatically generating documentation.
-- Should clear and unset be merged?
-- Effective Javascript #54 - Don't use `arguments.length` to provide parameter default values.
+- Should clear and unset be merged?  
+- Split superstore-sync into its own git repository
+- Split the tests up into those that test the async layer and those that test the localStorage layer.  (The point above is a dependency)
