@@ -137,7 +137,7 @@ tests["watch for changes in other processes"] = function() {
   return deferred.promise;
 };
 
-tests[prefix + "throw error if no namespace given"] = function() {
+tests["throw error if no namespace given"] = function() {
   var deferred = Q.defer();
   try {
     var store = new Superstore();
