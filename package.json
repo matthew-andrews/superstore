@@ -1,7 +1,7 @@
 {
   "name": "superstore",
   "version": "0.5.0",
-  "description": "Local storage, without the bugs.",
+  "description": "Local storage, without the bugs, and an asynchronous API",
   "main": "lib/superstore.js",
   "engines": {
     "node": "*"
