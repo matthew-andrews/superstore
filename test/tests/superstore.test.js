@@ -164,4 +164,25 @@ tests["be able to set in one instance of superstore and get from another instanc
   return deferred.promise;
 };
 
+
+tests["set takes 2 arguments only"] = function() {
+  var thrown;
+  try {
+    store.set("nothing");
+  } catch(e) {
+    thrown = true;
+  }
+  assert.isTrue(thrown);
+}
+
+tests["get takes 1 argument only"] = function() {
+  var thrown;
+  try {
+    store.get("did you mean", "set?");
+  } catch(e) {
+    thrown = true;
+  }
+  assert.isTrue(thrown);
+}
+
 buster.testCase('superstore', tests);
