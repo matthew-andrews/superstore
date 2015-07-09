@@ -20,7 +20,8 @@
     "buster": "~0.6.12",
     "grunt-istanbul": "~0.2.2",
     "phantomjs": "~1.9.1",
-    "q": "~0.9.6"
+    "q": "~0.9.6",
+    "es6-promise": "^2.3.0"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,6 @@
   "author": "Matt Andrews <matthew.andrews@ft.com>",
   "license": "MIT",
   "dependencies": {
-    "es6-promise": "^2.3.0",
     "setimmediate": "~1.0.1",
     "superstore-sync": "^1.1.0"
   }

@@ -4,7 +4,8 @@ config['superstore'] = {
   rootPath: '../',
   environment: 'browser',
   sources: [
-    'coverage/build/superstore.js',
+    'node_modules/es6-promise/dist/es6-promise.js',
+	'coverage/build/superstore.js',
     'node_modules/q/q.js'
   ],
   tests: [
