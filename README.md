@@ -31,7 +31,7 @@ var Superstore = require('superstore');
 var store = new Superstore('foo');
 
 store.get('bar').then(function(value){
-	\\Do something with value
+  \\Do something with value
 });
 ```
 

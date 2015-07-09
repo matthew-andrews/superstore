@@ -12,11 +12,11 @@ var dupStore = new Superstore("testing123");
 
 function getLocalStorage(key) {
   return localStorage[store.namespace+key];
-};
+}
 
 function setLocalStorage(key, val) {
   return localStorage[store.namespace+key] = val;
-};
+}
 
 tests["setUp"] = function() {
   localStorage.clear();
@@ -37,11 +37,11 @@ tests[prefix + "Should be able to read things (twice) from local storage"] = fun
   var deferred = Q.defer();
   var deferred2 = Q.defer();
   store.set('keyTwo', 3884).then(function(){
-	return store.get('keyTwo');
+    return store.get('keyTwo');
   }).then(function(value) {
     assert.equals(3884, value);
     deferred.resolve();
-	return store.get('keyTwo');
+    return store.get('keyTwo');
   }).then(function(value) {
     assert.equals(3884, value);
     deferred2.resolve();
@@ -78,7 +78,7 @@ tests[prefix + "Should json encode and decode objects"] = function() {
   var key = 'keySeventh';
   store.set(key, obj).then(function(value) {
     assert.equals(obj, value);
-	assert.equals(JSON.stringify(obj), getLocalStorage(key));
+    assert.equals(JSON.stringify(obj), getLocalStorage(key));
     deferred.resolve();
   });
   return deferred.promise;
@@ -103,12 +103,12 @@ tests[prefix + "#clear() clears only our namespaced data"] = function() {
   store.set('keyTenth', 'A').then(function() {
     return store.set('keyEleventh', 'B');
   }).then(function() {
-      return store.clear();
+    return store.clear();
   }).then(function() {
-	assert.equals(undefined, getLocalStorage("keyTenth"));
-	assert.equals(undefined, getLocalStorage("keyEleventh"));
-	assert.equals("123",     localStorage["other"]);
-	deferred.resolve();
+    assert.equals(undefined, getLocalStorage("keyTenth"));
+    assert.equals(undefined, getLocalStorage("keyEleventh"));
+    assert.equals("123",     localStorage["other"]);
+    deferred.resolve();
   });
   return deferred.promise;
 };
@@ -123,8 +123,8 @@ tests["watch for changes in other processes"] = function() {
     window.dispatchEvent(event);
     return store.get('key13');
   }).then(function(value) {
-      assert.equals(value, 'B');
-      deferred.resolve();
+     assert.equals(value, 'B');
+     deferred.resolve();
   });
   return deferred.promise;
 };
