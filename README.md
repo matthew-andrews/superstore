@@ -14,19 +14,29 @@ npm install superstore
 
 ## api
 
-Superstore is an uninstantiable module.  Its methods are:
+Superstore is an uninstantiable module.  All Superstore methods return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which will resolve with the stored value. Its methods are:
 
-### #get(key, callback)
+### #get(key)
 
-### #set(key, value, callback)
+### #set(key, value)
 
-### #unset(key, callback)
+### #unset(key)
 
-### #clear(callback)
+### #clear()
+
+## Example usage
+
+```
+var Superstore = require('superstore');
+var store = new Superstore('foo');
+
+store.get('bar').then(function(value){
+  \\Do something with value
+});
+```
 
 ## todo
 
 - JSDoc comments and automatically generating documentation.
 - Should clear and unset be merged?  
-- Split superstore-sync into its own git repository
 - Split the tests up into those that test the async layer and those that test the localStorage layer.  (The point above is a dependency)

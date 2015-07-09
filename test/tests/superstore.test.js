@@ -12,11 +12,11 @@ var dupStore = new Superstore("testing123");
 
 function getLocalStorage(key) {
   return localStorage[store.namespace+key];
-};
+}
 
 function setLocalStorage(key, val) {
   return localStorage[store.namespace+key] = val;
-};
+}
 
 tests["setUp"] = function() {
   localStorage.clear();
@@ -24,11 +24,11 @@ tests["setUp"] = function() {
 
 tests["Should be able to set and get data against a key"] = function() {
   var deferred = Q.defer();
-  store.set('quay', 'val you', function() {
-    store.get('quay', function(err, value) {
+  store.set('quay', 'val you').then(function() {
+    return store.get('quay');
+  }).then(function(value) {
       assert.equals('val you', value);
       deferred.resolve();
-    });
   });
   return deferred.promise;
 };
@@ -36,12 +36,13 @@ tests["Should be able to set and get data against a key"] = function() {
 tests[prefix + "Should be able to read things (twice) from local storage"] = function() {
   var deferred = Q.defer();
   var deferred2 = Q.defer();
-  setLocalStorage("keyTwo", 3884);
-  store.get('keyTwo', function(err, value) {
+  store.set('keyTwo', 3884).then(function(){
+    return store.get('keyTwo');
+  }).then(function(value) {
     assert.equals(3884, value);
     deferred.resolve();
-  });
-  store.get('keyTwo', function(err, value) {
+    return store.get('keyTwo');
+  }).then(function(value) {
     assert.equals(3884, value);
     deferred2.resolve();
   });
@@ -53,23 +54,8 @@ tests[prefix + "Should be able to read things (twice) from local storage"] = fun
 tests[prefix + "Should be able to unset things"] = function() {
   var deferred = Q.defer();
   getLocalStorage("keyThree", "Hello");
-  store.unset('keyThree', function() {
+  store.unset('keyThree').then(function() {
     assert.equals(undefined, getLocalStorage("keyThree"));
-    deferred.resolve();
-  });
-  return deferred.promise;
-};
-
-tests[prefix + "Shouldn't need to provide a set callback to set"] = function() {
-  store.set("keyFour", "OK");
-  assert.equals(getLocalStorage("keyFour"), "\"OK\"");
-};
-
-tests[prefix + "Shouldn't need to provide a set callback to unset"] = function() {
-  var deferred = Q.defer();
-  setLocalStorage("keyFifth", true);
-  store.unset('keyFifth', function() {
-    assert.equals(undefined, getLocalStorage("keyFifth"));
     deferred.resolve();
   });
   return deferred.promise;
@@ -77,7 +63,7 @@ tests[prefix + "Shouldn't need to provide a set callback to unset"] = function()
 
 tests["Getting an unset key should return a nully value"] = function() {
   var deferred = Q.defer();
-  store.get("keySixth", function(err, value) {
+  store.get("keySixth").then(function(value) {
     assert.equals(value, undefined);
     deferred.resolve();
   });
@@ -89,8 +75,10 @@ tests[prefix + "Should json encode and decode objects"] = function() {
   var obj = {
     test: [1,4,6,7]
   };
-  store.set('keySeventh', obj, function() {
-    assert.equals(JSON.stringify(obj), getLocalStorage("keySeventh"));
+  var key = 'keySeventh';
+  store.set(key, obj).then(function(value) {
+    assert.equals(obj, value);
+    assert.equals(JSON.stringify(obj), getLocalStorage(key));
     deferred.resolve();
   });
   return deferred.promise;
@@ -99,44 +87,44 @@ tests[prefix + "Should json encode and decode objects"] = function() {
 tests["Set should fire a callback"] = function() {
   var deferred = Q.defer();
   var spy = this.spy();
-  store.set('keyNinth', 'A', function () {
+  store.set('keyNinth', 'A').then(function () {
     spy();
     deferred.resolve();
   });
   return deferred.promise.then(function() {
     assert.called(spy);
-  });;
+  });
 };
 
 tests[prefix + "#clear() clears only our namespaced data"] = function() {
   var deferred = Q.defer();
   localStorage["other"] = "123";
 
-  store.set('keyTenth', 'A', function() {
-    store.set('keyEleventh', 'B', function() {
-      store.clear(function() {
-        assert.equals(undefined, getLocalStorage("keyTenth"));
-        assert.equals(undefined, getLocalStorage("keyEleventh"));
-        assert.equals("123",     localStorage["other"]);
-        deferred.resolve();
-      });
-    });
+  store.set('keyTenth', 'A').then(function() {
+    return store.set('keyEleventh', 'B');
+  }).then(function() {
+    return store.clear();
+  }).then(function() {
+    assert.equals(undefined, getLocalStorage("keyTenth"));
+    assert.equals(undefined, getLocalStorage("keyEleventh"));
+    assert.equals("123",     localStorage["other"]);
+    deferred.resolve();
   });
   return deferred.promise;
 };
 
 tests["watch for changes in other processes"] = function() {
   var deferred = Q.defer();
-  store.set('key13', 'A', function() {
+  store.set('key13', 'A').then(function() {
     var event = new CustomEvent("storage");
     event.key = store.namespace+"key13";
     event.newValue = "\"B\"";
 
     window.dispatchEvent(event);
-    store.get('key13', function(err, value) {
-      assert.equals(value, 'B');
-      deferred.resolve();
-    });
+    return store.get('key13');
+  }).then(function(value) {
+     assert.equals(value, 'B');
+     deferred.resolve();
   });
   return deferred.promise;
 };
@@ -155,11 +143,11 @@ tests["throw error if no namespace given"] = function() {
 tests["be able to set in one instance of superstore and get from another instance"] = function() {
   var deferred = Q.defer();
 
-  store.set('dupKey', 'hello', function() {
-    dupStore.get('dupKey', function(err, value) {
-      assert.equals("hello", value);
-      deferred.resolve();
-    });
+  store.set('dupKey', 'hello').then(function() {
+    return dupStore.get('dupKey');
+  }).then(function(value) {
+    assert.equals("hello", value);
+    deferred.resolve();
   });
   return deferred.promise;
 };

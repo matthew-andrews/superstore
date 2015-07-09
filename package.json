@@ -1,6 +1,6 @@
 {
   "name": "superstore",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Local storage, without the bugs, and an asynchronous API",
   "main": "lib/superstore.js",
   "engines": {
@@ -20,7 +20,8 @@
     "buster": "~0.6.12",
     "grunt-istanbul": "~0.2.2",
     "phantomjs": "~1.9.1",
-    "q": "~0.9.6"
+    "q": "~0.9.6",
+    "es6-promise": "^2.3.0"
   },
   "repository": {
     "type": "git",
