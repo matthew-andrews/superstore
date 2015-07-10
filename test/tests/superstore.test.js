@@ -7,8 +7,8 @@ try {
 }
 
 var tests = {};
-var store    = new Superstore("testing123");
-var dupStore = new Superstore("testing123");
+var store    = new Superstore("local", "testing123");
+var dupStore = new Superstore("local", "testing123");
 
 function getLocalStorage(key) {
   return localStorage[store.namespace+key];
