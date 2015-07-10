@@ -1,6 +1,8 @@
 # superstore [![Build Status](https://travis-ci.org/matthew-andrews/superstore.png?branch=master)](https://travis-ci.org/matthew-andrews/superstore)
 
-Superstore is a simple lightweight asynchronous wrapper around localStorage.  Its features include:
+Superstore is a simple lightweight asynchronous wrapper around the Web Storage APIs [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) and [sessionStorage](https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage).  Its features include:
+
+If you require an syncronous version please use [superstore](https://github.com/matthew-andrews/superstore) instead.
 
 - It is [resilient to iOS's strange behaviour in private browsing mode](http://stackoverflow.com/questions/14555347/html5-localstorage-doesnt-works-in-ios-safari-private-browsing).
 - By making use of [setImmediate](https://github.com/NobleJS/setImmediate) its callbacks are truly asynchronous whilst still being cross-browser and performant (compared with `setTimeout(function() {}, 0)` [which introduces a delay of *at least* 10ms](https://developer.mozilla.org/en-US/docs/Web/API/window.setTimeout#Minimum.2F_maximum_delay_and_timeout_nesting)).
@@ -8,8 +10,14 @@ Superstore is a simple lightweight asynchronous wrapper around localStorage.  It
 
 ## installation
 
+### npm
 ```
-npm install superstore
+npm install superstore --save
+```
+
+### bower
+```
+bower superstore --save
 ```
 
 ## api
@@ -28,7 +36,7 @@ Superstore is an uninstantiable module.  All Superstore methods return a [Promis
 
 ```
 var Superstore = require('superstore');
-var store = new Superstore('foo');
+var store = new Superstore('localStorage', 'foo');
 
 store.get('bar').then(function(value){
   \\Do something with value
