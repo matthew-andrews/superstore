@@ -40,11 +40,11 @@ var sessionStore = new Superstore('sessionStorage');
 
 ## Example usage
 
-```
+```js
 var Superstore = require('superstore');
 var store = new Superstore('localStorage', 'foo');
 
 store.get('bar').then(function(value){
-  \\Do something with value
+  // Do something with value
 });
 ```
