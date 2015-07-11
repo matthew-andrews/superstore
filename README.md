@@ -1,4 +1,4 @@
-# superstore [![Build Status](https://travis-ci.org/matthew-andrews/superstore.png?branch=master)](https://travis-ci.org/matthew-andrews/superstore)
+# superstore [![Build Status](https://travis-ci.org/matthew-andrews/superstore.svg?branch=master)](https://travis-ci.org/matthew-andrews/superstore)
 
 Superstore is a simple lightweight asynchronous wrapper around the Web Storage APIs [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) and [sessionStorage](https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage).  Its features include:
 
