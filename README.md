@@ -1,14 +1,13 @@
-# superstore [![Build Status](https://travis-ci.org/matthew-andrews/superstore.png?branch=master)](https://travis-ci.org/matthew-andrews/superstore)
+# superstore [![Build Status](https://travis-ci.org/matthew-andrews/superstore.svg?branch=master)](https://travis-ci.org/matthew-andrews/superstore)
 
 Superstore is a simple lightweight asynchronous wrapper around the Web Storage APIs [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) and [sessionStorage](https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage).  Its features include:
 
-If you require an syncronous version please use [superstore](https://github.com/matthew-andrews/superstore) instead.
+If you require an synchronous version please use [superstore-sync](https://github.com/matthew-andrews/superstore-sync) instead.
 
 - It is [resilient to iOS's strange behaviour in private browsing mode](http://stackoverflow.com/questions/14555347/html5-localstorage-doesnt-works-in-ios-safari-private-browsing).
-- By making use of [setImmediate](https://github.com/NobleJS/setImmediate) its callbacks are truly asynchronous whilst still being cross-browser and performant (compared with `setTimeout(function() {}, 0)` [which introduces a delay of *at least* 10ms](https://developer.mozilla.org/en-US/docs/Web/API/window.setTimeout#Minimum.2F_maximum_delay_and_timeout_nesting)).
 - It accepts objects as values and runs `JSON.stringify` on **#set** and `JSON.parse` on **#get** for you.
 
-## installation
+## Installation
 
 ### npm
 ```
@@ -22,7 +21,14 @@ bower superstore --save
 
 ## api
 
-Superstore is an uninstantiable module.  All Superstore methods return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which will resolve with the stored value. Its methods are:
+Superstore is an instantiable module.  All Superstore methods return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which will resolve with the stored value. Its methods are:
+
+### constructor (type, namespace)
+
+```js
+var localStore = new Superstore('localStorage');
+var sessionStore = new Superstore('sessionStorage');
+```
 
 ### #get(key)
 
@@ -42,9 +48,3 @@ store.get('bar').then(function(value){
   \\Do something with value
 });
 ```
-
-## todo
-
-- JSDoc comments and automatically generating documentation.
-- Should clear and unset be merged?  
-- Split the tests up into those that test the async layer and those that test the localStorage layer.  (The point above is a dependency)
