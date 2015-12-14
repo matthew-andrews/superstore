@@ -26,8 +26,8 @@ Superstore is an instantiable module.  All Superstore methods return a [Promise]
 ### constructor (type, namespace)
 
 ```js
-var localStore = new Superstore('localStorage');
-var sessionStore = new Superstore('sessionStorage');
+var localStore = new Superstore('local', 'foo');
+var sessionStore = new Superstore('session', 'bar');
 ```
 
 ### #get(key)
@@ -42,7 +42,7 @@ var sessionStore = new Superstore('sessionStorage');
 
 ```js
 var Superstore = require('superstore');
-var store = new Superstore('localStorage', 'foo');
+var store = new Superstore('local', 'foo');
 
 store.get('bar').then(function(value){
   // Do something with value
