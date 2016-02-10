@@ -9,6 +9,15 @@ try {
 var tests = {};
 var store    = new Superstore("local", "testing123");
 var dupStore = new Superstore("local", "testing123");
+var buggyLocalStorage = false;
+
+try {
+	localStorage.test = 'test';
+	localStorage.removeItem('test');
+} catch (err) {
+	if (err.code == 22) prefix = '// ';
+	buggyLocalStorage = true;
+}
 
 function getLocalStorage(key) {
   return localStorage[store.namespace+key];
@@ -151,5 +160,10 @@ tests["be able to set in one instance of superstore and get from another instanc
   });
   return deferred.promise;
 };
+
+tests["#isPersisting returns whether or not the data is persisting to storage"] = function() {
+	assert.equals(Superstore.isPersisting(), !buggyLocalStorage);
+};
+
 
 buster.testCase('superstore', tests);
