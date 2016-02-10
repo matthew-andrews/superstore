@@ -38,6 +38,9 @@ var sessionStore = new Superstore('session', 'bar');
 
 ### #clear()
 
+### Superstore.isPersisting()
+returns a boolean set to true if data is being persisted to storage, or false if it is being kept in memory (e.g. if localStorage is full or inaccessible).
+
 ## Example usage
 
 ```js

@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "superstore-sync": "~2.0.0"
+    "superstore-sync": "^2.1.0"
   }
 }
